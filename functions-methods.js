@@ -8,8 +8,13 @@
 // getEmailDomain("n.eeken@novi-education.nl") geeft novi-education.nl
 // getEmailDomain("t.mellink@novi.nl") geeft novi.nl
 // getEmailDomain("a.wiersma@outlook.com") geeft outlook.com
+function getEmailDomain(eMailAddress) {
+    return eMailAddress.split("@")[1];
+}
 
+const testEmailAssignment1 = "t.mellink@novi.nl";
 
+console.log(`Het domein van ${testEmailAssignment1} is ${getEmailDomain(testEmailAssignment1)}`);
 
 
 /* Opdracht  2 */
@@ -20,7 +25,23 @@
 // typeOfEmail("novi.nlaapjesk@outlook.com") geeft geeft "Extern" <-- deze moet het ook doen!
 // typeOfEmail("a.wiersma@outlook.com") geeft "Extern"
 
+function typeOfEmail(eMailAddress) {
+    const domain = getEmailDomain(eMailAddress);
 
+    if (domain.includes("novi-education.nl")) {
+        return "Student";
+    }
+    else if (domain.includes("novi.nl")) {
+        return "Medewerker";
+    }
+    else {
+        return "Extern";
+    }
+}
+
+const testEmailAssignment2 = "novi.nlaapjesk@outlook.com";
+
+console.log(`${testEmailAssignment2} is een ${typeOfEmail(testEmailAssignment2)} account.`);
 
 /* Opdracht  3 */
 // Schrijf een functie genaamd checkEmailValidity, die een emailadres verwacht en checkt of het emailadres valide is. De functie returned true of false, afhankelijk van de uitkomst.
@@ -34,3 +55,20 @@
 // checkEmailValidity("n.eekenanovi.nl") geeft false - want geen @
 // checkEmailValidity("n.eeken@novinl.") geeft false - want de punt mag niet als laatst
 // checkEmailValidity("tessmellink@novi,nl") geeft false - want er staat een komma in
+
+function checkEmailValidity(eMailAddress) {
+    const containsAtSign = eMailAddress.includes("@");
+    const containsComma = eMailAddress.includes(",");
+    const finalChacacter = eMailAddress.charAt(eMailAddress.length - 1);
+
+    if (containsAtSign && !containsComma && finalChacacter !== ".") {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+const testEmailAssignment3 = "n.eeken@novi.nl";
+
+console.log(`${testEmailAssignment3} is ${checkEmailValidity(testEmailAssignment3)? "wel" : "niet"} een valide email adres.`);
